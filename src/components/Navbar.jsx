@@ -34,9 +34,10 @@ const Navbar = () => {
       {isOpen && (
         <ul className="md:hidden flex flex-col space-y-4 bg-blue-600 text-center py-4">
           <li><Link to="/" className="block py-2 hover:text-gray-300">Home</Link></li>
-          <li><Link to="/traders/create" className="block py-2 hover:text-gray-300">About</Link></li>
-          <li><Link to="showprofit" className="block py-2 hover:text-gray-300">Services</Link></li>
-          
+          <li><Link to="/traders/create" className="block py-2 hover:text-gray-300">Create</Link></li>
+          <li><Link to="/trucks/create" className="block py-2 hover:text-gray-300">Add Truck</Link></li>
+          <li><Link to="/trucks/show" className="block py-2 hover:text-gray-300">Show Trucks</Link></li>
+          <li><Link to="/showprofit" className="block py-2 hover:text-gray-300">Show Profit</Link></li>
         </ul>
       )}
     </nav>
