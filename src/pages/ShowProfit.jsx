@@ -300,8 +300,8 @@ const ShowProfit = () => {
     const year = sdate.split('-')[0];
     const encodedTruck = encodeURIComponent(truck);
     const url = truck === '--Select Truck--' || truck === ''
-      ? `http://localhost:3000/traders/remainingTaka/${sdate}/${tdate}`
-      : `http://localhost:3000/traders/remainingTaka/${encodedTruck}/${sdate}/${tdate}`;
+      ? `https://saber-traders-backend-d1gm.vercel.app/traders/remainingTaka/${sdate}/${tdate}`
+      : `https://saber-traders-backend-d1gm.vercel.app/traders/remainingTaka/${encodedTruck}/${sdate}/${tdate}`;
 
       console.log(url)
     axios
