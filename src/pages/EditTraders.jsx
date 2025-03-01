@@ -436,19 +436,31 @@ const EditTraders = () => {
   }, [id]);
 
   const handleEditTrader = () => {
+    const quantity = Number(quantityOfCementBagRod);
+    const rate = Number(priceRate);
+    const totalTaka = quantity * rate;
+  
+    const driver = Number(driverSalary);
+    const fuel = Number(fuelExpense);
+    const labour = Number(labourGratuity);
+    const tollFee = Number(toll);
+    const transport = Number(transportCost);
+  
+    const remaining = totalTaka - (driver + fuel + labour + tollFee + transport);
+  
     const data = {
       truckNo: truck,
       date,
       description: `${from} to ${to}`,
-      quantityOfCementBagRod,
-      priceRate,
-      taka,
-      driverSalary,
-      fuelExpense,
-      labourGratuity,
-      toll,
-      transportCost,
-      remainingTaka,
+      quantityOfCementBagRod: quantity,
+      priceRate: rate,
+      taka: totalTaka,
+      driverSalary: driver,
+      fuelExpense: fuel,
+      labourGratuity: labour,
+      toll: tollFee,
+      transportCost: transport,
+      remainingTaka: remaining,
     };
     setLoading(true);
     axios
@@ -467,9 +479,11 @@ const EditTraders = () => {
     <div className="p-4">
       <BackButton />
       <h1 className="text-3xl my-4 text-center font-semibold text-gray-700">Edit Trader</h1>
-      {loading && <Spinner />}
+      {loading && <div className='flex justify-center min-h-screen'>
+          <Spinner />
+        </div>}
 
-      <div className="flex flex-col border-2 border-sky-400 rounded-xl max-w-2xl mx-auto p-6 bg-white shadow-lg">
+      <div className="flex flex-col border-2 border-emerald-400 rounded-xl max-w-2xl mx-auto p-6 bg-white shadow-lg">
         {/* Truck Selection */}
         <div className="mb-3">
           <label className="block text-gray-500 text-lg mb-1">Truck</label>
@@ -494,13 +508,13 @@ const EditTraders = () => {
           { label: 'To', type: 'text', value: to, setter: setTo },
           { label: 'Quantity', type: 'number', value: quantityOfCementBagRod, setter: setQuantityOfCementBagRod },
           { label: 'Price Rate', type: 'number', value: priceRate, setter: setPriceRate },
-          { label: 'Taka', type: 'number', value: taka, setter: setTaka },
+          // { label: 'Taka', type: 'number', value: taka, setter: setTaka },
           { label: 'Driver Salary', type: 'number', value: driverSalary, setter: setDriverSalary },
           { label: 'Fuel Expenses', type: 'number', value: fuelExpense, setter: setFuelExpense },
           { label: 'Labour Gratuity', type: 'number', value: labourGratuity, setter: setLabourGratuity },
           { label: 'Toll', type: 'number', value: toll, setter: setToll },
           { label: 'Transport Cost', type: 'number', value: transportCost, setter: setTransportCost },
-          { label: 'Remaining Taka', type: 'number', value: remainingTaka, setter: setRemainingTaka },
+          // { label: 'Remaining Taka', type: 'number', value: remainingTaka, setter: setRemainingTaka },
         ].map((field, index) => (
           <div key={index} className="mb-3">
             <label className="block text-gray-500 text-lg mb-1">{field.label}</label>
@@ -515,7 +529,7 @@ const EditTraders = () => {
 
         {/* Save Button */}
         <button
-          className="bg-sky-500 text-white py-2 rounded-md mt-4 hover:bg-sky-600 transition duration-200"
+          className="bg-emerald-500 hover:bg-emerald-600 text-white py-2 rounded-md mt-4 transition duration-200"
           onClick={handleEditTrader}
         >
           Save

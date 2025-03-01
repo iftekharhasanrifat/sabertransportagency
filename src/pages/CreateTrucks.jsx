@@ -89,8 +89,10 @@ const CreateTrucks = () => {
     <div className='p-4'>
       <BackButton />
       <h1 className='text-3xl my-4 text-center'>Add Truck</h1>
-      {loading && <Spinner />}
-      <div className='flex flex-col border-2 border-sky-400 rounded-xl w-full max-w-lg p-6 mx-auto bg-white shadow-lg'>
+      {loading && <div className='flex justify-center min-h-screen'>
+          <Spinner />
+        </div>}
+      <div className='flex flex-col border-2 border-emerald-400 rounded-xl w-full max-w-lg p-6 mx-auto bg-white shadow-lg'>
         <div className='my-4'>
           <label className='text-xl mr-4 text-gray-600'>Truck No</label>
           <input
@@ -102,7 +104,7 @@ const CreateTrucks = () => {
         </div>
 
         <button
-          className='w-full py-3 mt-6 bg-sky-500 text-white rounded-lg shadow-md hover:bg-sky-600 transition duration-200'
+          className='w-full py-3 mt-6  text-white rounded-lg shadow-md bg-emerald-500 hover:bg-emerald-600 transition duration-200'
           onClick={handleSaveTruck}
         >
           Save

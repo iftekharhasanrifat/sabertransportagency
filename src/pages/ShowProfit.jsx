@@ -322,7 +322,7 @@ const ShowProfit = () => {
   return (
     <>
       <div className='my-2'>
-        <div className='flex flex-col border-2 border-sky-400 rounded-xl p-4 mx-auto w-full max-w-md'>
+        <div className='flex flex-col border-2 border-emerald-400 rounded-xl p-4 mx-auto w-full max-w-md'>
           <div className='my-1'>
             <label className='mr-4 text-gray-500'>Truck</label>
             <select
@@ -358,7 +358,7 @@ const ShowProfit = () => {
             />
           </div>
           <button
-            className='p-2 bg-sky-500 m-8 text-white rounded-lg hover:bg-sky-600 transition-all duration-200'
+            className='p-2 bg-emerald-500 hover:bg-emerald-600 m-8 text-white rounded-lg transition-all duration-200'
             onClick={handleShowProfit}
           >
             Show Profit
@@ -428,7 +428,7 @@ const ShowProfit = () => {
           <div className='flex justify-center mt-4'>
             <button
               onClick={handleDownloadPDF}
-              className='p-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-all duration-200'
+              className='p-2 m-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition-all duration-200'
             >
               Download PDF
             </button>

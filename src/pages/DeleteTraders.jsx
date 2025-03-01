@@ -77,15 +77,17 @@ const DeleteTraders = () => {
     <div className="p-6">
       <BackButton />
       <h1 className="text-3xl my-6 text-center font-semibold text-gray-700">Delete Record</h1>
-      {loading && <Spinner />}
+      {loading && <div className='flex justify-center min-h-screen'>
+          <Spinner />
+        </div>}
 
-      <div className="flex flex-col items-center border-2 border-red-500 bg-white rounded-xl max-w-md mx-auto p-6 shadow-lg">
+      <div className="flex flex-col items-center border-2 border-rose-500 bg-white rounded-xl max-w-md mx-auto p-6 shadow-lg">
         <h3 className="text-2xl text-gray-800 font-semibold text-center">
           ⚠️ Are you sure you want to delete this record?
         </h3>
 
         <button
-          className="w-full bg-red-600 text-white py-3 rounded-md mt-6 hover:bg-red-700 transition duration-200"
+          className="w-full bg-rose-500 hover:bg-rose-600 text-white py-3 rounded-md mt-6 transition duration-200"
           onClick={handleDeleteTrader}
         >
           Yes, Delete It

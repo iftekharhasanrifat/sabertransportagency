@@ -242,21 +242,36 @@ const CreateTraders = () => {
       });
   }, []);
 
+
   const handleSaveTraders = () => {
+    const quantity = Number(quantityOfCementBagRod);
+    const rate = Number(priceRate);
+    const totalTaka = quantity * rate;
+  
+    const driver = Number(driverSalary);
+    const fuel = Number(fuelExpense);
+    const labour = Number(labourGratuity);
+    const tollFee = Number(toll);
+    const transport = Number(transportCost);
+  
+    const remaining = totalTaka - (driver + fuel + labour + tollFee + transport);
+  
     const data = {
       truckNo: truck,
       date,
       description: `${from} to ${to}`,
-      quantityOfCementBagRod,
-      priceRate,
-      taka,
-      driverSalary,
-      fuelExpense,
-      labourGratuity,
-      toll,
-      transportCost,
-      remainingTaka,
+      quantityOfCementBagRod: quantity,
+      priceRate: rate,
+      taka: totalTaka,
+      driverSalary: driver,
+      fuelExpense: fuel,
+      labourGratuity: labour,
+      toll: tollFee,
+      transportCost: transport,
+      remainingTaka: remaining,
     };
+  
+    // console.log(data);
     setLoading(true);
     axios
       .post('https://saber-traders-backend-d1gm.vercel.app/traders', data)
@@ -269,13 +284,45 @@ const CreateTraders = () => {
         console.log(error);
       });
   };
+  
+
+  // const handleSaveTraders = () => {
+  //   const data = {
+  //     truckNo: truck,
+  //     date,
+  //     description: `${from} to ${to}`,
+  //     quantityOfCementBagRod,
+  //     priceRate,
+  //     taka: priceRate*quantityOfCementBagRod,
+  //     driverSalary,
+  //     fuelExpense,
+  //     labourGratuity,
+  //     toll,
+  //     transportCost,
+  //     remainingTaka: taka - (driverSalary+fuelExpense+labourGratuity+toll+transportCost),
+  //   };
+  //   console.log(data)
+  //   // setLoading(true);
+  //   // axios
+  //   //   .post('https://saber-traders-backend-d1gm.vercel.app/traders', data)
+  //   //   .then(() => {
+  //   //     setLoading(false);
+  //   //     navigate('/');
+  //   //   })
+  //   //   .catch((error) => {
+  //   //     setLoading(false);
+  //   //     console.log(error);
+  //   //   });
+  // };
 
   return (
     <div className='p-4'>
       <BackButton />
       <h1 className='text-3xl my-4 text-center'>Create Record</h1>
-      {loading && <Spinner />}
-      <div className='flex flex-col border-2 border-sky-400 rounded-xl w-full max-w-lg p-4 mx-auto bg-white shadow-lg'>
+      {loading && <div className='flex justify-center min-h-screen'>
+          <Spinner />
+        </div>}
+      <div className='flex flex-col border-2 border-emerald-400 rounded-xl w-full max-w-lg p-4 mx-auto bg-white shadow-lg'>
         <div className='my-2'>
           <label className='text-lg text-gray-700'>Truck</label>
           <select
@@ -341,7 +388,7 @@ const CreateTraders = () => {
           />
         </div>
 
-        <div className='my-2'>
+        {/* <div className='my-2'>
           <label className='text-lg text-gray-700'>Taka</label>
           <input
             type='number'
@@ -349,7 +396,7 @@ const CreateTraders = () => {
             onChange={(e) => setTaka(e.target.value)}
             className='border-2 border-gray-300 p-3 w-full rounded-lg'
           />
-        </div>
+        </div> */}
 
         <div className='my-2'>
           <label className='text-lg text-gray-700'>Driver Salary</label>
@@ -401,7 +448,7 @@ const CreateTraders = () => {
           />
         </div>
 
-        <div className='my-2'>
+        {/* <div className='my-2'>
           <label className='text-lg text-gray-700'>Remaining Taka</label>
           <input
             type='number'
@@ -409,11 +456,11 @@ const CreateTraders = () => {
             onChange={(e) => setRemainingTaka(e.target.value)}
             className='border-2 border-gray-300 p-3 w-full rounded-lg'
           />
-        </div>
+        </div> */}
 
         <button
           onClick={handleSaveTraders}
-          className='w-full py-3 mt-6 bg-sky-500 text-white rounded-lg shadow-lg hover:bg-sky-600 transition duration-200'
+          className='w-full py-3 mt-6 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg shadow-lg transition duration-200'
         >
           Save
         </button>

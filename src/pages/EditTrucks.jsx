@@ -133,9 +133,11 @@ const EditTrucks = () => {
     <div className="p-6">
       <BackButton />
       <h1 className="text-3xl my-6 text-center font-semibold text-gray-700">Edit Truck</h1>
-      {loading && <Spinner />}
+      {loading && <div className='flex justify-center  min-h-screen'>
+          <Spinner />
+        </div>}
 
-      <div className="flex flex-col border-2 border-sky-400 rounded-xl max-w-lg mx-auto p-6 bg-white shadow-lg">
+      <div className="flex flex-col border-2 border-emerald-400 rounded-xl max-w-lg mx-auto p-6 bg-white shadow-lg">
         {/* Truck Number Input */}
         <div className="mb-4">
           <label className="block text-gray-600 text-lg mb-2">Truck No</label>
@@ -149,7 +151,7 @@ const EditTrucks = () => {
 
         {/* Save Button */}
         <button
-          className="bg-sky-500 text-white py-2 rounded-md mt-4 hover:bg-sky-600 transition duration-200"
+          className=" text-white py-2 rounded-md mt-4 bg-emerald-500 hover:bg-emerald-600 transition duration-200"
           onClick={handleEditTruck}
         >
           Save

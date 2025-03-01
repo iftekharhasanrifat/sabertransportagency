@@ -111,7 +111,7 @@ const ShowAllTrucks = () => {
       </div>
 
       {loading ? (
-        <div className='flex justify-center items-center min-h-screen'>
+        <div className='flex justify-center min-h-screen'>
           <Spinner />
         </div>
       ) : (
