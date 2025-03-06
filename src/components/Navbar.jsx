@@ -288,11 +288,15 @@ import { Link } from "react-router-dom";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [loggedInUser, setLoggedInUser] = useContext(UserContext);
-  const user = JSON.parse(sessionStorage.getItem("user"));
+  // const user = JSON.parse(sessionStorage.getItem("user"));
+  const user = JSON.parse(localStorage.getItem("user"));
+
 
   const handleLogout = () => {
     window.location.reload();
-    sessionStorage.clear();
+    // sessionStorage.clear();
+    localStorage.clear();
+
   };
 
   return (

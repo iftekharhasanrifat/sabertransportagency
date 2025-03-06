@@ -33,7 +33,9 @@ import { UserContext } from '../App';
 
 const PrivateRoute = ({ children }) => {
   const [loggedInUser] = useContext(UserContext);
-  const user = JSON.parse(sessionStorage.getItem('user'));
+  // const user = JSON.parse(sessionStorage.getItem('user'));
+  const user = JSON.parse(localStorage.getItem('user'));
+
   const location = useLocation();
 
   return (user || loggedInUser?.username) ? (

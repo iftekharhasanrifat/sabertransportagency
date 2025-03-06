@@ -40,7 +40,8 @@ const  LoginPage=()=> {
             if (typeof (data) == 'object') {
                 setLoggedInUser(data);
                 alert('Login successful!');
-                sessionStorage.setItem('user',JSON.stringify(data.username));
+                // sessionStorage.setItem('user',JSON.stringify(data.username));
+                localStorage.setItem('user',JSON.stringify(data.username));
             }
             else {
                 setErrorMessage(data)
