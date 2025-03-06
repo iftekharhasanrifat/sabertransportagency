@@ -1,4 +1,4 @@
-import React, { useContext,useState } from 'react';
+import React, { useContext,useState ,useEffect} from 'react';
 import { useNavigate , useLocation } from 'react-router-dom';
 import { ErrorContext, UserContext } from '../App';
 import axios from 'axios';
@@ -15,6 +15,14 @@ const  LoginPage=()=> {
   const [passwordFocused, setPasswordFocused] = useState(false);
   const [buttonHovered, setButtonHovered] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
+
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      navigate('/');
+    }
+  }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
