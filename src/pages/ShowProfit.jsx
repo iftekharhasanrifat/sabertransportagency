@@ -445,10 +445,10 @@ const ShowProfit = () => {
             </div>
 
             <div className='flex justify-between items-center'>
-              <h1 className='text-3xl my-8'>Total Profit</h1>
+              <h3 className='text-xl my-8'>Total Profit</h3>
               <div className='flex gap-x-8'>
-                <h2 className='text-sky-800 text-3xl'>{totalTransportCost}Tk/-</h2>
-                <h2 className='text-sky-800 text-3xl'>{totalProfit}Tk/-</h2>
+                <h4 className='text-sky-800 text-xl'>{totalTransportCost}Tk/-</h4>
+                <h4 className='text-sky-800 text-xl'>{totalProfit}Tk/-</h4>
               </div>
             </div>
           </div>
