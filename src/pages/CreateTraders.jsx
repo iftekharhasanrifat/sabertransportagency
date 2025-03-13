@@ -228,6 +228,7 @@ const CreateTraders = () => {
   const [toll, setToll] = useState('');
   const [transportCost, setTransportCost] = useState('');
   const [remainingTaka, setRemainingTaka] = useState('');
+  const [transportCostDescription, setTransportCostDescription] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -268,6 +269,7 @@ const CreateTraders = () => {
       labourGratuity: labour,
       toll: tollFee,
       transportCost: transport,
+      transportCostDescription: transportCostDescription,
       remainingTaka: remaining,
     };
   
@@ -444,6 +446,15 @@ const CreateTraders = () => {
             type='number'
             value={transportCost}
             onChange={(e) => setTransportCost(e.target.value)}
+            className='border-2 border-gray-300 p-3 w-full rounded-lg'
+          />
+        </div>
+        <div className='my-2'>
+          <label className='text-lg text-gray-700'>Transport Cost Description</label>
+          <input
+            type='text'
+            value={transportCostDescription}
+            onChange={(e) => setTransportCostDescription(e.target.value)}
             className='border-2 border-gray-300 p-3 w-full rounded-lg'
           />
         </div>

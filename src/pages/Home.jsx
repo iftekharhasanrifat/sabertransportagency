@@ -195,6 +195,11 @@ const Home = () => {
       selector: (row) => row.transportCost,
     },
     {
+      name: "Cost Description",
+      selector: (row) => row.transportCostDescription,
+      // selector: (row) => row.transportCost,
+    },
+    {
       name: "Remaining Taka",
       selector: (row) => row.remainingTaka,
     },

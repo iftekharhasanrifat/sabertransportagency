@@ -132,6 +132,7 @@ const ShowTraders = () => {
             { label: "Labour Gratuity", value: trader.labourGratuity },
             { label: "Toll", value: trader.toll },
             { label: "Transport Cost", value: trader.transportCost },
+            { label: "Transport Cost Description", value: trader.transportCostDescription },
             { label: "Remaining Taka", value: trader.remainingTaka },
           ].map((item, index) => (
             <div

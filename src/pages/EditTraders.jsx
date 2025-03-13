@@ -397,6 +397,7 @@ const EditTraders = () => {
   const [toll, setToll] = useState('');
   const [transportCost, setTransportCost] = useState('');
   const [remainingTaka, setRemainingTaka] = useState('');
+  const [transportCostDescription, setTransportCostDescription] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
@@ -460,6 +461,7 @@ const EditTraders = () => {
       labourGratuity: labour,
       toll: tollFee,
       transportCost: transport,
+      transportCostDescription: transportCostDescription,
       remainingTaka: remaining,
     };
     setLoading(true);
@@ -514,6 +516,8 @@ const EditTraders = () => {
           { label: 'Labour Gratuity', type: 'number', value: labourGratuity, setter: setLabourGratuity },
           { label: 'Toll', type: 'number', value: toll, setter: setToll },
           { label: 'Transport Cost', type: 'number', value: transportCost, setter: setTransportCost },
+          { label: 'Transport Cost Description', type: 'text', value: transportCostDescription, setter: setTransportCostDescription },
+
           // { label: 'Remaining Taka', type: 'number', value: remainingTaka, setter: setRemainingTaka },
         ].map((field, index) => (
           <div key={index} className="mb-3">

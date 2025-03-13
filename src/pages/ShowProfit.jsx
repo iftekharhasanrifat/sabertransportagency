@@ -224,6 +224,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import html2pdf from 'html2pdf.js';
+import * as XLSX from 'xlsx';
 
 const ShowProfit = () => {
   const [trucks, setTrucks] = useState([]);
@@ -292,6 +293,28 @@ const ShowProfit = () => {
       .catch((error) => {
         console.error('Error generating PDF:', error);
       });
+  };
+
+  const handleExportExcel = () => {
+    const ws = XLSX.utils.json_to_sheet(traders.map((trader, index) => ({
+      Sl: index + 1,
+      Date: trader.date,
+      "Truck No": trader.truckNo,
+      Description: trader.description,
+      "Quantity Of Cement Bag Rod": trader.quantityOfCementBagRod,
+      "Price Rate": trader.priceRate,
+      Taka: trader.taka,
+      "Driver Salary": trader.driverSalary,
+      "Fuel Expense": trader.fuelExpense,
+      "Labour Gratuity": trader.labourGratuity,
+      Toll: trader.toll,
+      "Transport Cost": trader.transportCost ,
+      "Transport Cost Description": trader.transportCostDescription,
+      "Remaining Taka": trader.remainingTaka
+    })));
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Profit Report");
+    XLSX.writeFile(wb, "Profit_Report.xlsx");
   };
   
 
@@ -391,6 +414,7 @@ const ShowProfit = () => {
                     <th className='border border-slate-600 rounded-md p-2'>Labour Gratuity</th>
                     <th className='border border-slate-600 rounded-md p-2'>Toll</th>
                     <th className='border border-slate-600 rounded-md p-2'>Transport Cost</th>
+                    {/* <th className='border border-slate-600 rounded-md p-2'>Transport Cost Description</th> */}
                     <th className='border border-slate-600 rounded-md p-2'>Remaining Taka</th>
                   </tr>
                 </thead>
@@ -408,7 +432,11 @@ const ShowProfit = () => {
                       <td className='border border-slate-700 rounded-md text-center p-2'>{trader.fuelExpense}</td>
                       <td className='border border-slate-700 rounded-md text-center p-2'>{trader.labourGratuity}</td>
                       <td className='border border-slate-700 rounded-md text-center p-2'>{trader.toll}</td>
-                      <td className='border border-slate-700 rounded-md text-center p-2'>{trader.transportCost}</td>
+                      {
+                        trader.transportCost>0 && trader.transportCostDescription!=="" && trader.transportCostDescription !== undefined?
+                        <td className='border border-slate-700 rounded-md text-center p-2'>{trader.transportCost} ({trader.transportCostDescription})</td>:
+                        <td className='border border-slate-700 rounded-md text-center p-2'>{trader.transportCost}</td>
+                      }
                       <td className='border border-slate-700 rounded-md text-center p-2'>{trader.remainingTaka}</td>
                     </tr>
                   ))}
@@ -432,6 +460,12 @@ const ShowProfit = () => {
             >
               Download PDF
             </button>
+            <button
+          onClick={handleExportExcel}
+          className='p-2 m-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all duration-200'
+        >
+          Export To Excel
+        </button>
           </div>
         </>
       )}
