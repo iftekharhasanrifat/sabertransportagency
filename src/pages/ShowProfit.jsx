@@ -419,7 +419,7 @@ const ShowProfit = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {traders.map((trader, index) => (
+                  {/* {traders.map((trader, index) => (
                     <tr key={trader._id}>
                       <td className='border border-slate-700 rounded-md text-center p-2'>{index + 1}</td>
                       <td className='border border-slate-700 rounded-md text-center p-2'>{trader.date}</td>
@@ -439,7 +439,32 @@ const ShowProfit = () => {
                       }
                       <td className='border border-slate-700 rounded-md text-center p-2'>{trader.remainingTaka}</td>
                     </tr>
-                  ))}
+                  ))} */}
+
+{traders
+  .slice() // Create a shallow copy to avoid mutating the original array
+  .sort((a, b) => new Date(a.date) - new Date(b.date)) // Sorting in ascending order
+  .map((trader, index) => (
+    <tr key={trader._id}>
+      <td className='border border-slate-700 rounded-md text-center p-2'>{index + 1}</td>
+      <td className='border border-slate-700 rounded-md text-center p-2'>{trader.date}</td>
+      <td className='border border-slate-700 rounded-md text-center p-2'>{trader.truckNo}</td>
+      <td className='border border-slate-700 rounded-md text-center p-2'>{trader.description}</td>
+      <td className='border border-slate-700 rounded-md text-center p-2'>{trader.quantityOfCementBagRod}</td>
+      <td className='border border-slate-700 rounded-md text-center p-2'>{trader.priceRate}</td>
+      <td className='border border-slate-700 rounded-md text-center p-2'>{trader.taka}</td>
+      <td className='border border-slate-700 rounded-md text-center p-2'>{trader.driverSalary}</td>
+      <td className='border border-slate-700 rounded-md text-center p-2'>{trader.fuelExpense}</td>
+      <td className='border border-slate-700 rounded-md text-center p-2'>{trader.labourGratuity}</td>
+      <td className='border border-slate-700 rounded-md text-center p-2'>{trader.toll}</td>
+      {trader.transportCost > 0 && trader.transportCostDescription
+        ? <td className='border border-slate-700 rounded-md text-center p-2'>
+            {trader.transportCost} ({trader.transportCostDescription})
+          </td>
+        : <td className='border border-slate-700 rounded-md text-center p-2'>{trader.transportCost}</td>}
+      <td className='border border-slate-700 rounded-md text-center p-2'>{trader.remainingTaka}</td>
+    </tr>
+  ))}
                 </tbody>
               </table>
             </div>
