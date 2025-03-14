@@ -428,6 +428,7 @@ const EditTraders = () => {
         setToll(response.data.toll);
         setTransportCost(response.data.transportCost);
         setRemainingTaka(response.data.remainingTaka);
+        setTransportCostDescription(response.data.transportCostDescription);
         setLoading(false);
       })
       .catch((error) => {
