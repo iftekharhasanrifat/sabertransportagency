@@ -421,7 +421,7 @@ const ShowProfit = () => {
     doc.text("Total Profit:", 14, finalY + 15);
   
     // ✅ Apply a Blue Color for Key Values
-    doc.setTextColor(30, 144, 255);
+    doc.setTextColor(7 ,89 ,133);
     doc.text(`${totalTransportCost} Tk/-`, transportCostX, finalY+5);
     doc.text(`${totalProfit} Tk/-`, remainingTakaX, finalY + 15);
   
