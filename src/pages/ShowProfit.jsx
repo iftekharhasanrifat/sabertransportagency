@@ -360,16 +360,18 @@ const ShowProfit = () => {
     const doc = new jsPDF("landscape");
   
     // ✅ Title Styling
-    doc.setFontSize(18);
+    doc.setFontSize(20);
     doc.setFont("helvetica", "bold");
+    doc.setTextColor(7 ,89 ,133);
     doc.text("Saber Transport Agency - Profit Report", 14, 15);
     doc.setFont("helvetica", "normal"); // Reset font
+    doc.setTextColor(0, 0, 0); // Reset color
 
 
     if (truck !== "--Select Truck--" && truck !== "") {
       doc.setFontSize(12);
       doc.setFont("helvetica", "bold");
-      doc.text(`Truck No: `, 14, 23);
+      doc.text(`Truck No : `, 14, 23);
       doc.setFont("helvetica", "bold");
       doc.text(`${truck}`, 40, 23); // Dynamic Truck No
   }
@@ -382,9 +384,9 @@ const ShowProfit = () => {
 
     doc.setFontSize(12);
     doc.setFont("helvetica", "bold");
-    doc.text("Date : ", 14, 28);
+    doc.text("Date : ", 14, 30);
     doc.setFont("helvetica", "bold"); // Reset font
-    doc.text(`${sdate} to ${tdate}`, 40, 28);
+    doc.text(`${sdate} To ${tdate}`, 40, 30);
 
     const sortedTraders = [...traders].sort((a, b) => new Date(a.date) - new Date(b.date));
     // ✅ Define Table Headers
@@ -415,11 +417,11 @@ const ShowProfit = () => {
     autoTable(doc, {
       head: headers,
       body: data,
-      startY: 32, // Start position for the table
+      startY: 35, // Start position for the table
       styles: { fontSize: 8, cellPadding: 3 },
-      headStyles: { fillColor: [0, 102, 204], textColor: [255, 255, 255], fontSize: 10, fontStyle: "bold" }, // Blue header
+      headStyles: { fillColor: [7 ,89 ,133], textColor: [255, 255, 255], fontSize: 10, fontStyle: "bold" }, // Blue header
       alternateRowStyles: { fillColor: [240, 240, 240] }, // Light gray alternating rows
-      theme: "grid",
+      theme: "grid", // Table style
       margin: { top: 20 },
     });
   
@@ -439,8 +441,8 @@ const ShowProfit = () => {
     doc.setFont("helvetica", "bold");
   
     // ✅ Labels
-    doc.text("Total Transportation Cost:", 14, finalY+5); 
-    doc.text("Total Profit:", 14, finalY + 15);
+    doc.text("Total Transportation Cost : ", 14, finalY+5); 
+    doc.text("Total Profit : ", 14, finalY + 15);
   
     // ✅ Apply a Blue Color for Key Values
     doc.setTextColor(7 ,89 ,133);
