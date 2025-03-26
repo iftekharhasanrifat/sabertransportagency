@@ -223,8 +223,10 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import html2pdf from 'html2pdf.js';
+// import html2pdf from 'html2pdf.js';
 import * as XLSX from 'xlsx';
+import { jsPDF } from "jspdf";
+import autoTable from "jspdf-autotable";  // ✅ Import autoTable separately
 
 const ShowProfit = () => {
   const [trucks, setTrucks] = useState([]);
@@ -262,38 +264,174 @@ const ShowProfit = () => {
   //   html2pdf().set(opt).from(element).save();
   // };
 
+  // const handleDownloadPDF = () => {
+  //   const element = pdfRef.current;
+  
+  //   // Set the configuration for PDF generation
+  //   const opt = {
+  //     margin: 0,
+  //     filename: 'Profit_Report.pdf',
+  //     image: { type: 'jpeg', quality: 0.98 },
+  //     html2canvas: { scale: 2, useCORS: true, scrollX: 0, scrollY: 0 },  // Decreased the scale slightly
+  //     jsPDF: {
+  //       unit: 'mm',
+  //       format: 'a4',
+  //       orientation: 'landscape',
+  //       font: 'helvetica',
+  //       textColor: [0, 0, 0],
+  //     },
+  //   };
+  
+  //   // Use html2pdf and then adjust font size
+  //   html2pdf()
+  //     .set(opt)
+  //     .from(element)
+  //     .toPdf()
+  //     .get('pdf')
+  //     .then((pdf) => {
+  //       pdf.setFontSize(2);  // Set smaller font size
+  //       pdf.save('Profit_Report.pdf');  // Trigger the download
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error generating PDF:', error);
+  //     });
+  // };
+  // const handleDownloadPDF = () => {
+  //   const doc = new jsPDF("landscape");
+  
+  //   // Title
+  //   doc.setFontSize(18);
+  //   doc.text("Saber Transport Agency - Profit Report", 14, 15);
+  
+  //   // Define the table headers
+  //   const headers = [
+  //     ["Sl", "Date", "Truck No", "Description", "Quantity", "Price Rate", "Taka", "Driver Salary", "Fuel Expense", "Labour Gratuity", "Toll", "Transport Cost", "Remaining Taka"],
+  //   ];
+  
+  //   // Map traders data into rows
+  //   const data = traders.map((trader, index) => [
+  //     index + 1,
+  //     trader.date,
+  //     trader.truckNo,
+  //     trader.description,
+  //     trader.quantityOfCementBagRod,
+  //     trader.priceRate,
+  //     trader.taka,
+  //     trader.driverSalary,
+  //     trader.fuelExpense,
+  //     trader.labourGratuity,
+  //     trader.toll,
+  //     trader.transportCost > 0 && trader.transportCostDescription
+  //       ? `${trader.transportCost} (${trader.transportCostDescription})`
+  //       : trader.transportCost,
+  //     trader.remainingTaka,
+  //   ]);
+  
+  //   // ✅ Use autoTable with correct syntax
+  //   autoTable(doc, {
+  //     head: headers,
+  //     body: data,
+  //     startY: 25, // Start position for the table
+  //     styles: { fontSize: 8, cellPadding: 2 }, // Adjust font size
+  //     theme: "grid", // Table style
+  //     margin: { top: 20 },
+  //   });
+  
+  //   // ✅ Get the final Y position of the table
+  //   const finalY = doc.lastAutoTable.finalY + 10; // Spacing below the table
+
+  //   // // ✅ Align Total Transport Cost & Total Profit under their respective columns
+  //   // const transportCostX = 200; // Adjust X position to match 'Transport Cost' column
+  //   // const remainingTakaX = 250;  // Adjust X position to match 'Remaining Taka' column
+  
+  //   doc.setFontSize(14);
+  //   doc.text("Total Transportation Cost:", 14, finalY); // Label on the left side
+  //   doc.text("Total Profit:", 14, finalY+10); // Label on the left side
+    
+  //   doc.setTextColor(30, 144, 255); // Sky blue color for numbers
+  
+  //   doc.text(`${totalTransportCost} Tk/-`, 260, finalY); // Under Transport Cost column
+  //   doc.text(`${totalProfit} Tk/-`, 260, finalY+10); // Under Remaining Taka column
+  
+  //   // Save the PDF
+  //   doc.save("Profit_Report.pdf");
+  // };
   const handleDownloadPDF = () => {
-    const element = pdfRef.current;
+    const doc = new jsPDF("landscape");
   
-    // Set the configuration for PDF generation
-    const opt = {
-      margin: 0,
-      filename: 'Profit_Report.pdf',
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2, useCORS: true, scrollX: 0, scrollY: 0 },  // Decreased the scale slightly
-      jsPDF: {
-        unit: 'mm',
-        format: 'a4',
-        orientation: 'landscape',
-        font: 'helvetica',
-        textColor: [0, 0, 0],
-      },
-    };
+    // ✅ Title Styling
+    doc.setFontSize(18);
+    doc.setFont("helvetica", "bold");
+    doc.text("Saber Transport Agency - Profit Report", 14, 15);
+    doc.setFont("helvetica", "normal"); // Reset font
   
-    // Use html2pdf and then adjust font size
-    html2pdf()
-      .set(opt)
-      .from(element)
-      .toPdf()
-      .get('pdf')
-      .then((pdf) => {
-        pdf.setFontSize(2);  // Set smaller font size
-        pdf.save('Profit_Report.pdf');  // Trigger the download
-      })
-      .catch((error) => {
-        console.error('Error generating PDF:', error);
-      });
+    // ✅ Define Table Headers
+    const headers = [
+      ["Sl", "Date", "Truck No", "Description", "Quantity", "Price Rate", "Taka", "Driver Salary", "Fuel Expense", "Labour Gratuity", "Toll", "Transport Cost", "Remaining Taka"],
+    ];
+  
+    // ✅ Map traders' data into rows
+    const data = traders.map((trader, index) => [
+      index + 1,
+      trader.date,
+      trader.truckNo,
+      trader.description,
+      trader.quantityOfCementBagRod,
+      trader.priceRate,
+      trader.taka,
+      trader.driverSalary,
+      trader.fuelExpense,
+      trader.labourGratuity,
+      trader.toll,
+      trader.transportCost > 0 && trader.transportCostDescription
+        ? `${trader.transportCost} (${trader.transportCostDescription})`
+        : trader.transportCost,
+      trader.remainingTaka,
+    ]);
+  
+    // ✅ Generate Table with Improved Styling
+    autoTable(doc, {
+      head: headers,
+      body: data,
+      startY: 25, // Start position for the table
+      styles: { fontSize: 8, cellPadding: 3 },
+      headStyles: { fillColor: [0, 102, 204], textColor: [255, 255, 255], fontSize: 10, fontStyle: "bold" }, // Blue header
+      alternateRowStyles: { fillColor: [240, 240, 240] }, // Light gray alternating rows
+      theme: "grid",
+      margin: { top: 20 },
+    });
+  
+    // ✅ Get the final Y position of the table
+    const finalY = doc.lastAutoTable.finalY + 10; // Spacing below the table
+  
+    // ✅ Draw a Separator Line
+    doc.setDrawColor(0);
+    doc.setLineWidth(0.5);
+    doc.line(14, finalY - 5, 280, finalY - 5); // Horizontal line for separation
+  
+    // ✅ Column Alignment for Total Transport Cost & Total Profit
+    const transportCostX = 255; // Align under 'Transport Cost'
+    const remainingTakaX = 255; // Align under 'Remaining Taka'
+  
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "bold");
+  
+    // ✅ Labels
+    doc.text("Total Transportation Cost:", 14, finalY+5); 
+    doc.text("Total Profit:", 14, finalY + 15);
+  
+    // ✅ Apply a Blue Color for Key Values
+    doc.setTextColor(30, 144, 255);
+    doc.text(`${totalTransportCost} Tk/-`, transportCostX, finalY+5);
+    doc.text(`${totalProfit} Tk/-`, remainingTakaX, finalY + 15);
+  
+    // ✅ Reset Text Color to Black
+    doc.setTextColor(0, 0, 0);
+  
+    // Save the PDF
+    doc.save("Profit_Report.pdf");
   };
+  
 
   const handleExportExcel = () => {
     const ws = XLSX.utils.json_to_sheet(traders.map((trader, index) => ({
@@ -479,12 +617,12 @@ const ShowProfit = () => {
           </div>
 
           <div className='flex justify-center mt-4'>
-            <button
-              onClick={handleDownloadPDF}
-              className='p-2 m-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition-all duration-200'
-            >
-              Download PDF
-            </button>
+          <button
+  onClick={handleDownloadPDF}
+  className="p-2 m-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition-all duration-200"
+>
+  Download PDF
+</button>
             <button
           onClick={handleExportExcel}
           className='p-2 m-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all duration-200'
