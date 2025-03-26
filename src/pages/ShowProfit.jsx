@@ -364,14 +364,36 @@ const ShowProfit = () => {
     doc.setFont("helvetica", "bold");
     doc.text("Saber Transport Agency - Profit Report", 14, 15);
     doc.setFont("helvetica", "normal"); // Reset font
-  
+
+
+    if (truck !== "--Select Truck--" && truck !== "") {
+      doc.setFontSize(12);
+      doc.setFont("helvetica", "bold");
+      doc.text(`Truck No: `, 14, 23);
+      doc.setFont("helvetica", "bold");
+      doc.text(`${truck}`, 40, 23); // Dynamic Truck No
+  }
+
+    // doc.setFontSize(12);
+    // doc.setFont("helvetica", "bold");
+    // doc.text("Truck No : ", 14, 23);
+    // doc.setFont("helvetica", "bold"); // Reset font
+    // doc.text(`${truck}`, 40, 23);
+
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "bold");
+    doc.text("Date : ", 14, 28);
+    doc.setFont("helvetica", "bold"); // Reset font
+    doc.text(`${sdate} to ${tdate}`, 40, 28);
+
+    const sortedTraders = [...traders].sort((a, b) => new Date(a.date) - new Date(b.date));
     // ✅ Define Table Headers
     const headers = [
       ["Sl", "Date", "Truck No", "Description", "Quantity", "Price Rate", "Taka", "Driver Salary", "Fuel Expense", "Labour Gratuity", "Toll", "Transport Cost", "Remaining Taka"],
     ];
   
     // ✅ Map traders' data into rows
-    const data = traders.map((trader, index) => [
+    const data = sortedTraders.map((trader, index) => [
       index + 1,
       trader.date,
       trader.truckNo,
@@ -393,7 +415,7 @@ const ShowProfit = () => {
     autoTable(doc, {
       head: headers,
       body: data,
-      startY: 25, // Start position for the table
+      startY: 32, // Start position for the table
       styles: { fontSize: 8, cellPadding: 3 },
       headStyles: { fillColor: [0, 102, 204], textColor: [255, 255, 255], fontSize: 10, fontStyle: "bold" }, // Blue header
       alternateRowStyles: { fillColor: [240, 240, 240] }, // Light gray alternating rows
@@ -464,7 +486,7 @@ const ShowProfit = () => {
       ? `https://saber-traders-backend-d1gm.vercel.app/traders/remainingTaka/${sdate}/${tdate}`
       : `https://saber-traders-backend-d1gm.vercel.app/traders/remainingTaka/${encodedTruck}/${sdate}/${tdate}`;
 
-      console.log(url)
+      // console.log(url)
     axios
       .get(url)
       .then((res) => {
@@ -472,7 +494,7 @@ const ShowProfit = () => {
         setTotalProfit(res.data.total);
         setTotalTransportCost(res.data.transportCost);
         setLoading(false);
-        console.log(res.data.data)
+        // console.log(res.data.data)
       })
       .catch((error) => {
         console.error(error.message);
