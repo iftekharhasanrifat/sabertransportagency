@@ -369,7 +369,7 @@ const ShowProfit = () => {
 
 
     if (truck !== "--Select Truck--" && truck !== "") {
-      doc.setFontSize(12);
+      doc.setFontSize(10);
       doc.setFont("helvetica", "bold");
       doc.text(`Truck No : `, 14, 23);
       doc.setFont("helvetica", "bold");
@@ -382,7 +382,7 @@ const ShowProfit = () => {
     // doc.setFont("helvetica", "bold"); // Reset font
     // doc.text(`${truck}`, 40, 23);
 
-    doc.setFontSize(12);
+    doc.setFontSize(10);
     doc.setFont("helvetica", "bold");
     doc.text("Date : ", 14, 30);
     doc.setFont("helvetica", "bold"); // Reset font
@@ -418,11 +418,11 @@ const ShowProfit = () => {
       head: headers,
       body: data,
       startY: 35, // Start position for the table
-      styles: { fontSize: 8, cellPadding: 3 },
-      headStyles: { fillColor: [7 ,89 ,133], textColor: [255, 255, 255], fontSize: 10, fontStyle: "bold" }, // Blue header
+      styles: { fontSize: 6, cellPadding: 2.5},
+      headStyles: { fillColor: [7 ,89 ,133], textColor: [255, 255, 255], fontSize: 6, fontStyle: "bold" }, // Blue header
       alternateRowStyles: { fillColor: [240, 240, 240] }, // Light gray alternating rows
       theme: "grid", // Table style
-      margin: { top: 20 },
+      margin: { top: 10 },
     });
   
     // ✅ Get the final Y position of the table
@@ -437,7 +437,7 @@ const ShowProfit = () => {
     const transportCostX = 255; // Align under 'Transport Cost'
     const remainingTakaX = 255; // Align under 'Remaining Taka'
   
-    doc.setFontSize(12);
+    doc.setFontSize(11);
     doc.setFont("helvetica", "bold");
   
     // ✅ Labels
