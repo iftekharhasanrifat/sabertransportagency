@@ -233,6 +233,8 @@ const ShowProfit = () => {
   const [traders, setTraders] = useState([]);
   const [totalProfit, setTotalProfit] = useState(0);
   const [totalTransportCost, setTotalTransportCost] = useState(0);
+  const [totalFuelExpense, setTotalFuelExpense] = useState(0);
+  const [totalTaka, setTotalTaka] = useState(0);
   const [truck, setTruck] = useState('');
   const [sdate, setSDate] = useState('');
   const [tdate, setTDate] = useState('');
@@ -436,19 +438,22 @@ const ShowProfit = () => {
     // ✅ Column Alignment for Total Transport Cost & Total Profit
     const transportCostX = 255; // Align under 'Transport Cost'
     const remainingTakaX = 255; // Align under 'Remaining Taka'
-  
+    const totalTakaX = 255; 
+    const fuelExpenseX = 255; 
     doc.setFontSize(11);
     doc.setFont("helvetica", "bold");
   
     // ✅ Labels
     doc.text("Total Transportation Cost : ", 14, finalY+5); 
-    doc.text("Total Profit : ", 14, finalY + 15);
-  
+    doc.text("Total Profit : ", 14, finalY + 12);
+    doc.text("Total Taka : ", 14, finalY+19); 
+    doc.text("Total Fuel Expenses : ", 14, finalY + 26);
     // ✅ Apply a Blue Color for Key Values
     doc.setTextColor(7 ,89 ,133);
     doc.text(`${totalTransportCost} Tk/-`, transportCostX, finalY+5);
-    doc.text(`${totalProfit} Tk/-`, remainingTakaX, finalY + 15);
-  
+    doc.text(`${totalProfit} Tk/-`, remainingTakaX, finalY + 12);
+    doc.text(`${totalTaka} Tk/-`, totalTakaX, finalY+19);
+    doc.text(`${totalFuelExpense} Tk/-`, fuelExpenseX, finalY + 26);
     // ✅ Reset Text Color to Black
     doc.setTextColor(0, 0, 0);
   
@@ -494,6 +499,8 @@ const ShowProfit = () => {
       .then((res) => {
         setTraders(res.data.data);
         setTotalProfit(res.data.total);
+        setTotalFuelExpense(res.data.fuelCost);
+        setTotalTaka(res.data.totalTaka);
         setTotalTransportCost(res.data.transportCost);
         setLoading(false);
         // console.log(res.data.data)
@@ -632,10 +639,27 @@ const ShowProfit = () => {
             </div>
 
             <div className='flex justify-between items-center'>
-              <h3 className='text-xl my-8'>Total Profit</h3>
+              <h4 className='text-xl my-1'>Total Profit</h4>
+              <div className='flex gap-x-8'>     
+                <h4 className='text-sky-800 text-xl'>{totalProfit}Tk/-</h4>
+              </div>
+            </div>
+            <div className='flex justify-between items-center'>
+              <h4 className='text-xl my-1'>Total Transportation Cost</h4>
               <div className='flex gap-x-8'>
                 <h4 className='text-sky-800 text-xl'>{totalTransportCost}Tk/-</h4>
-                <h4 className='text-sky-800 text-xl'>{totalProfit}Tk/-</h4>
+              </div>
+            </div>
+            <div className='flex justify-between items-center'>
+              <h4 className='text-xl my-1'>Total Taka</h4>
+              <div className='flex gap-x-8'>
+                <h4 className='text-sky-800 text-xl'>{totalTaka}Tk/-</h4>
+              </div>
+            </div>
+            <div className='flex justify-between items-center'>
+              <h3 className='text-xl my-1'>Total Fuel Expenses</h3>
+              <div className='flex gap-x-8'>
+                <h4 className='text-sky-800 text-xl'>{totalFuelExpense}Tk/-</h4>
               </div>
             </div>
           </div>
