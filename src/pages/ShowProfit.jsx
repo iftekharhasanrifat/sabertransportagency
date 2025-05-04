@@ -420,7 +420,7 @@ const ShowProfit = () => {
       head: headers,
       body: data,
       startY: 35, // Start position for the table
-      styles: { fontSize: 6, cellPadding: 2.5},
+      styles: { fontSize: 6, cellPadding: 2},
       headStyles: { fillColor: [7 ,89 ,133], textColor: [255, 255, 255], fontSize: 6, fontStyle: "bold" }, // Blue header
       alternateRowStyles: { fillColor: [240, 240, 240] }, // Light gray alternating rows
       theme: "grid", // Table style
