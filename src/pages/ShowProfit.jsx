@@ -358,109 +358,224 @@ const ShowProfit = () => {
   //   // Save the PDF
   //   doc.save("Profit_Report.pdf");
   // };
-  const handleDownloadPDF = () => {
-    const doc = new jsPDF("landscape");
+  // const handleDownloadPDF = () => {
+  //   const doc = new jsPDF("landscape");
   
-    // ✅ Title Styling
-    doc.setFontSize(20);
-    doc.setFont("helvetica", "bold");
-    doc.setTextColor(7 ,89 ,133);
-    doc.text("Saber Transport Agency - Profit Report", 14, 15);
-    doc.setFont("helvetica", "normal"); // Reset font
-    doc.setTextColor(0, 0, 0); // Reset color
+  //   // ✅ Title Styling
+  //   doc.setFontSize(20);
+  //   doc.setFont("helvetica", "bold");
+  //   doc.setTextColor(7 ,89 ,133);
+  //   doc.text("Saber Transport Agency - Profit Report", 14, 15);
+  //   doc.setFont("helvetica", "normal"); // Reset font
+  //   doc.setTextColor(0, 0, 0); // Reset color
 
 
-    if (truck !== "--Select Truck--" && truck !== "") {
-      doc.setFontSize(10);
-      doc.setFont("helvetica", "bold");
-      doc.text(`Truck No : `, 14, 23);
-      doc.setFont("helvetica", "bold");
-      doc.text(`${truck}`, 40, 23); // Dynamic Truck No
-  }
+  //   if (truck !== "--Select Truck--" && truck !== "") {
+  //     doc.setFontSize(10);
+  //     doc.setFont("helvetica", "bold");
+  //     doc.text(`Truck No : `, 14, 23);
+  //     doc.setFont("helvetica", "bold");
+  //     doc.text(`${truck}`, 40, 23); // Dynamic Truck No
+  // }
 
-    // doc.setFontSize(12);
-    // doc.setFont("helvetica", "bold");
-    // doc.text("Truck No : ", 14, 23);
-    // doc.setFont("helvetica", "bold"); // Reset font
-    // doc.text(`${truck}`, 40, 23);
+  //   // doc.setFontSize(12);
+  //   // doc.setFont("helvetica", "bold");
+  //   // doc.text("Truck No : ", 14, 23);
+  //   // doc.setFont("helvetica", "bold"); // Reset font
+  //   // doc.text(`${truck}`, 40, 23);
 
+  //   doc.setFontSize(10);
+  //   doc.setFont("helvetica", "bold");
+  //   doc.text("Date : ", 14, 30);
+  //   doc.setFont("helvetica", "bold"); // Reset font
+  //   doc.text(`${sdate} To ${tdate}`, 40, 30);
+
+  //   const sortedTraders = [...traders].sort((a, b) => new Date(a.date) - new Date(b.date));
+  //   // ✅ Define Table Headers
+  //   const headers = [
+  //     ["Sl", "Date", "Truck No", "Description", "Quantity", "Price Rate", "Taka", "Driver Salary", "Fuel Expense", "Labour Gratuity", "Toll", "Transport Cost", "Remaining Taka"],
+  //   ];
+  
+  //   // ✅ Map traders' data into rows
+  //   const data = sortedTraders.map((trader, index) => [
+  //     index + 1,
+  //     trader.date,
+  //     trader.truckNo,
+  //     trader.description,
+  //     trader.quantityOfCementBagRod,
+  //     trader.priceRate,
+  //     trader.taka,
+  //     trader.driverSalary,
+  //     trader.fuelExpense,
+  //     trader.labourGratuity,
+  //     trader.toll,
+  //     trader.transportCost > 0 && trader.transportCostDescription
+  //       ? `${trader.transportCost} (${trader.transportCostDescription})`
+  //       : trader.transportCost,
+  //     trader.remainingTaka,
+  //   ]);
+  
+  //   // ✅ Generate Table with Improved Styling
+  //   autoTable(doc, {
+  //     head: headers,
+  //     body: data,
+  //     startY: 35, // Start position for the table
+  //     styles: { fontSize: 6, cellPadding: 1},
+  //     headStyles: { fillColor: [7 ,89 ,133], textColor: [255, 255, 255], fontSize: 6, fontStyle: "bold" }, // Blue header
+  //     alternateRowStyles: { fillColor: [240, 240, 240] }, // Light gray alternating rows
+  //     pageBreak : "avoid", // Allow page breaks in rows
+  //     theme: "grid", // Table style
+  //     margin: { top: 10 },
+  //   });
+  
+  //   // ✅ Get the final Y position of the table
+  //   const finalY = doc.lastAutoTable.finalY + 10; // Spacing below the table
+  
+  //   // ✅ Draw a Separator Line
+  //   doc.setDrawColor(0);
+  //   doc.setLineWidth(0.5);
+  //   doc.line(14, finalY - 5, 280, finalY - 5); // Horizontal line for separation
+  
+  //   // ✅ Column Alignment for Total Transport Cost & Total Profit
+  //   const transportCostX = 255; // Align under 'Transport Cost'
+  //   const remainingTakaX = 255; // Align under 'Remaining Taka'
+  //   const totalTakaX = 255; 
+  //   const fuelExpenseX = 255; 
+  //   doc.setFontSize(11);
+  //   doc.setFont("helvetica", "bold");
+  
+  //   // ✅ Labels
+  //   doc.text("Total Transportation Cost : ", 14, finalY+3); 
+  //   doc.text("Total Profit : ", 14, finalY + 10);
+  //   doc.text("Total Taka : ", 14, finalY+17); 
+  //   doc.text("Total Fuel Expenses : ", 14, finalY + 24);
+  //   // ✅ Apply a Blue Color for Key Values
+  //   doc.setTextColor(7 ,89 ,133);
+  //   doc.text(`${totalTransportCost} Tk/-`, transportCostX, finalY+3);
+  //   doc.text(`${totalProfit} Tk/-`, remainingTakaX, finalY + 10);
+  //   doc.text(`${totalTaka} Tk/-`, totalTakaX, finalY+17);
+  //   doc.text(`${totalFuelExpense} Tk/-`, fuelExpenseX, finalY + 24);
+  //   // ✅ Reset Text Color to Black
+  //   doc.setTextColor(0, 0, 0);
+  
+  //   // Save the PDF
+  //   doc.save("Profit_Report.pdf");
+  // };
+  
+  const handleDownloadPDF = () => {
+  const doc = new jsPDF("landscape");
+
+  // ✅ Title Styling
+  doc.setFontSize(20);
+  doc.setFont("helvetica", "bold");
+  doc.setTextColor(7, 89, 133);
+  doc.text("Saber Transport Agency - Profit Report", 14, 15);
+
+  // ✅ Reset font and color
+  doc.setFont("helvetica", "normal");
+  doc.setTextColor(0, 0, 0);
+
+  // ✅ Optional Truck Info
+  if (truck !== "--Select Truck--" && truck !== "") {
     doc.setFontSize(10);
     doc.setFont("helvetica", "bold");
-    doc.text("Date : ", 14, 30);
-    doc.setFont("helvetica", "bold"); // Reset font
-    doc.text(`${sdate} To ${tdate}`, 40, 30);
+    doc.text("Truck No : ", 14, 23);
+    doc.text(`${truck}`, 40, 23);
+  }
 
-    const sortedTraders = [...traders].sort((a, b) => new Date(a.date) - new Date(b.date));
-    // ✅ Define Table Headers
-    const headers = [
-      ["Sl", "Date", "Truck No", "Description", "Quantity", "Price Rate", "Taka", "Driver Salary", "Fuel Expense", "Labour Gratuity", "Toll", "Transport Cost", "Remaining Taka"],
-    ];
-  
-    // ✅ Map traders' data into rows
-    const data = sortedTraders.map((trader, index) => [
-      index + 1,
-      trader.date,
-      trader.truckNo,
-      trader.description,
-      trader.quantityOfCementBagRod,
-      trader.priceRate,
-      trader.taka,
-      trader.driverSalary,
-      trader.fuelExpense,
-      trader.labourGratuity,
-      trader.toll,
-      trader.transportCost > 0 && trader.transportCostDescription
-        ? `${trader.transportCost} (${trader.transportCostDescription})`
-        : trader.transportCost,
-      trader.remainingTaka,
-    ]);
-  
-    // ✅ Generate Table with Improved Styling
-    autoTable(doc, {
-      head: headers,
-      body: data,
-      startY: 35, // Start position for the table
-      styles: { fontSize: 6, cellPadding: 2},
-      headStyles: { fillColor: [7 ,89 ,133], textColor: [255, 255, 255], fontSize: 6, fontStyle: "bold" }, // Blue header
-      alternateRowStyles: { fillColor: [240, 240, 240] }, // Light gray alternating rows
-      theme: "grid", // Table style
-      margin: { top: 10 },
-    });
-  
-    // ✅ Get the final Y position of the table
-    const finalY = doc.lastAutoTable.finalY + 10; // Spacing below the table
-  
-    // ✅ Draw a Separator Line
-    doc.setDrawColor(0);
-    doc.setLineWidth(0.5);
-    doc.line(14, finalY - 5, 280, finalY - 5); // Horizontal line for separation
-  
-    // ✅ Column Alignment for Total Transport Cost & Total Profit
-    const transportCostX = 255; // Align under 'Transport Cost'
-    const remainingTakaX = 255; // Align under 'Remaining Taka'
-    const totalTakaX = 255; 
-    const fuelExpenseX = 255; 
-    doc.setFontSize(11);
-    doc.setFont("helvetica", "bold");
-  
-    // ✅ Labels
-    doc.text("Total Transportation Cost : ", 14, finalY+5); 
-    doc.text("Total Profit : ", 14, finalY + 12);
-    doc.text("Total Taka : ", 14, finalY+19); 
-    doc.text("Total Fuel Expenses : ", 14, finalY + 26);
-    // ✅ Apply a Blue Color for Key Values
-    doc.setTextColor(7 ,89 ,133);
-    doc.text(`${totalTransportCost} Tk/-`, transportCostX, finalY+5);
-    doc.text(`${totalProfit} Tk/-`, remainingTakaX, finalY + 12);
-    doc.text(`${totalTaka} Tk/-`, totalTakaX, finalY+19);
-    doc.text(`${totalFuelExpense} Tk/-`, fuelExpenseX, finalY + 26);
-    // ✅ Reset Text Color to Black
-    doc.setTextColor(0, 0, 0);
-  
-    // Save the PDF
-    doc.save("Profit_Report.pdf");
-  };
-  
+  // ✅ Date Range
+  doc.setFontSize(10);
+  doc.setFont("helvetica", "bold");
+  doc.text("Date : ", 14, 30);
+  doc.text(`${sdate} To ${tdate}`, 40, 30);
+
+  // ✅ Sort trader data by date
+  const sortedTraders = [...traders].sort((a, b) => new Date(a.date) - new Date(b.date));
+
+  // ✅ Table headers
+  const headers = [
+    [
+      "Sl", "Date", "Truck No", "Description", "Quantity", "Price Rate", "Taka",
+      "Driver Salary", "Fuel Expense", "Labour Gratuity", "Toll", "Transport Cost", "Remaining Taka"
+    ],
+  ];
+
+  // ✅ Table body
+  const data = sortedTraders.map((trader, index) => [
+    index + 1,
+    trader.date,
+    trader.truckNo,
+    trader.description,
+    trader.quantityOfCementBagRod,
+    trader.priceRate,
+    trader.taka,
+    trader.driverSalary,
+    trader.fuelExpense,
+    trader.labourGratuity,
+    trader.toll,
+    trader.transportCost > 0 && trader.transportCostDescription
+      ? `${trader.transportCost} (${trader.transportCostDescription})`
+      : trader.transportCost,
+    trader.remainingTaka,
+  ]);
+
+  // ✅ Render table
+  autoTable(doc, {
+    head: headers,
+    body: data,
+    startY: 35,
+    styles: { fontSize: 6, cellPadding: 3 },
+    headStyles: {
+      fillColor: [7, 89, 133],
+      textColor: [255, 255, 255],
+      fontSize: 6,
+      fontStyle: "bold",
+    },
+    alternateRowStyles: { fillColor: [240, 240, 240] },
+    rowPageBreak: "avoid",
+    theme: "grid",
+    margin: { top: 10 },
+  });
+
+  // ✅ Calculate remaining space
+  const pageHeight = doc.internal.pageSize.height;
+  let finalY = doc.lastAutoTable.finalY + 10;
+  const footerHeight = 30;
+
+  if (finalY + footerHeight > pageHeight) {
+    doc.addPage();
+    finalY = 15;
+  }
+
+  // ✅ Separator Line
+  doc.setDrawColor(0);
+  doc.setLineWidth(0.5);
+  doc.line(14, finalY - 5, 280, finalY - 5);
+
+  // ✅ Footer Labels
+  doc.setFontSize(11);
+  doc.setFont("helvetica", "bold");
+  doc.setTextColor(0, 0, 0);
+
+
+  doc.text("Total Taka : ", 14, finalY + 3);
+  doc.text("Total Transportation Cost : ", 14, finalY + 10);
+  doc.text("Total Fuel Expenses : ", 14, finalY + 17);
+  doc.text("Total Profit : ", 14, finalY + 24);
+ 
+
+  // ✅ Footer Values
+  doc.setTextColor(7, 89, 133);
+  const alignRightX = 255;
+  doc.text(`${totalTaka} Tk/-`, alignRightX, finalY + 3);
+  doc.text(`${totalTransportCost} Tk/-`, alignRightX, finalY + 10);
+  doc.text(`${totalFuelExpense} Tk/-`, alignRightX, finalY + 17);
+  doc.text(`${totalProfit} Tk/-`, alignRightX, finalY + 24);
+
+  // ✅ Save PDF
+  doc.save("Profit_Report.pdf");
+};
+
 
   const handleExportExcel = () => {
     const ws = XLSX.utils.json_to_sheet(traders.map((trader, index) => ({
