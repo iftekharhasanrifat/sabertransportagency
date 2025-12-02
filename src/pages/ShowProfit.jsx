@@ -235,6 +235,13 @@ const ShowProfit = () => {
   const [totalTransportCost, setTotalTransportCost] = useState(0);
   const [totalFuelExpense, setTotalFuelExpense] = useState(0);
   const [totalTaka, setTotalTaka] = useState(0);
+  const [totalTipSalary,setTotalTipSalary] = useState(0);
+  const [totalLabourGratuity,setTotalLabourGratuity] = useState(0);
+  const [totalDriverSalary,setTotalDriverSalary] = useState(0);
+
+  const [totalToll,setTotalToll] = useState(0);
+
+
   const [truck, setTruck] = useState('');
   const [sdate, setSDate] = useState('');
   const [tdate, setTDate] = useState('');
@@ -462,16 +469,137 @@ const ShowProfit = () => {
   //   doc.save("Profit_Report.pdf");
   // };
   
-  const handleDownloadPDF = () => {
+//   const handleDownloadPDF = () => {
+//   const doc = new jsPDF("landscape");
+
+//   // ✅ Title Styling
+//   doc.setFontSize(20);
+//   doc.setFont("helvetica", "bold");
+//   doc.setTextColor(7, 89, 133);
+//   doc.text("Saber Transport Agency - Profit Report", 14, 15);
+
+//   // ✅ Reset font and color
+//   doc.setFont("helvetica", "normal");
+//   doc.setTextColor(0, 0, 0);
+
+//   // ✅ Optional Truck Info
+//   if (truck !== "--Select Truck--" && truck !== "") {
+//     doc.setFontSize(10);
+//     doc.setFont("helvetica", "bold");
+//     doc.text("Truck No : ", 14, 23);
+//     doc.text(`${truck}`, 40, 23);
+//   }
+
+//   // ✅ Date Range
+//   doc.setFontSize(10);
+//   doc.setFont("helvetica", "bold");
+//   doc.text("Date : ", 14, 30);
+//   doc.text(`${sdate} To ${tdate}`, 40, 30);
+
+//   // ✅ Sort trader data by date
+//   const sortedTraders = [...traders].sort((a, b) => new Date(a.date) - new Date(b.date));
+
+//   // ✅ Table headers
+//   const headers = [
+//     [
+//       "Sl", "Date", "Truck No", "Description", "Quantity", "Price Rate", "Taka",
+//       "Tip Salary", "Fuel Expense", "Labour Gratuity", "Toll", "Transport Cost","Driver Salary", "Remaining Taka"
+//     ],
+//   ];
+
+//   // ✅ Table body
+//   const data = sortedTraders.map((trader, index) => [
+//     index + 1,
+//     trader.date,
+//     trader.truckNo,
+//     trader.description,
+//     trader.quantityOfCementBagRod,
+//     trader.priceRate,
+//     trader.taka,
+//     trader.driverSalary,
+//     trader.fuelExpense,
+//     trader.labourGratuity,
+//     trader.toll,
+//     trader.transportCost > 0 && trader.transportCostDescription
+//       ? `${trader.transportCost} (${trader.transportCostDescription})`
+//       : trader.transportCost,
+//     trader.upDdriverSalary,
+//     trader.remainingTaka,
+//   ]);
+
+//   // ✅ Render table
+//   autoTable(doc, {
+//     head: headers,
+//     body: data,
+//     startY: 35,
+//     styles: { fontSize: 6, cellPadding: 3 },
+//     headStyles: {
+//       fillColor: [7, 89, 133],
+//       textColor: [255, 255, 255],
+//       fontSize: 6,
+//       fontStyle: "bold",
+//     },
+//     alternateRowStyles: { fillColor: [240, 240, 240] },
+//     rowPageBreak: "avoid",
+//     theme: "grid",
+//     margin: { top: 10 },
+//   });
+
+//   // ✅ Calculate remaining space
+//   const pageHeight = doc.internal.pageSize.height;
+//   let finalY = doc.lastAutoTable.finalY + 10;
+//   const footerHeight = 30;
+
+//   if (finalY + footerHeight > pageHeight) {
+//     doc.addPage();
+//     finalY = 15;
+//   }
+
+//   // ✅ Separator Line
+//   doc.setDrawColor(0);
+//   doc.setLineWidth(0.5);
+//   doc.line(14, finalY - 5, 280, finalY - 5);
+
+//   // ✅ Footer Labels
+//   doc.setFontSize(11);
+//   doc.setFont("helvetica", "bold");
+//   doc.setTextColor(0, 0, 0);
+
+
+//   doc.text("Total Taka : ", 14, finalY + 3);
+//   doc.text("Total Tip Salary : ", 14, finalY + 10);
+//   doc.text("Total Fuel Expense : ", 14, finalY + 17);
+//   doc.text("Total Labour Gratuity : ", 14, finalY + 24);
+//   doc.text("Total Toll : ", 14, finalY + 31);
+//   doc.text("Total Transportation Cost : ", 14, finalY + 38);
+//   doc.text("Total Driver Salary ", 14, finalY + 45);
+//   doc.text("Total Profit : ", 14, finalY + 52);
+ 
+
+//   // ✅ Footer Values
+//   doc.setTextColor(7, 89, 133);
+//   const alignRightX = 255;
+//   doc.text(`${totalTaka} Tk/-`, alignRightX, finalY + 3);
+//   doc.text(`${totalTipSalary} Tk/-`, alignRightX, finalY + 10);
+//   doc.text(`${totalFuelExpense} Tk/-`, alignRightX, finalY + 17);
+//   doc.text(`${totalLabourGratuity} Tk/-`, alignRightX, finalY + 24);
+//   doc.text(`${totalToll} Tk/-`, alignRightX, finalY + 31);
+//   doc.text(`${totalTransportCost} Tk/-`, alignRightX, finalY + 38);
+//   doc.text(`${totalDriverSalary} Tk/-`, alignRightX, finalY + 45);
+//   doc.text(`${totalProfit} Tk/-`, alignRightX, finalY + 52);
+//   // ✅ Save PDF
+//   doc.save("Profit_Report.pdf");
+// };
+const handleDownloadPDF = () => {
   const doc = new jsPDF("landscape");
 
-  // ✅ Title Styling
+  // ✅ Title
   doc.setFontSize(20);
   doc.setFont("helvetica", "bold");
   doc.setTextColor(7, 89, 133);
   doc.text("Saber Transport Agency - Profit Report", 14, 15);
 
-  // ✅ Reset font and color
+  // Reset font
   doc.setFont("helvetica", "normal");
   doc.setTextColor(0, 0, 0);
 
@@ -489,18 +617,21 @@ const ShowProfit = () => {
   doc.text("Date : ", 14, 30);
   doc.text(`${sdate} To ${tdate}`, 40, 30);
 
-  // ✅ Sort trader data by date
-  const sortedTraders = [...traders].sort((a, b) => new Date(a.date) - new Date(b.date));
+  // Sort by date
+  const sortedTraders = [...traders].sort(
+    (a, b) => new Date(a.date) - new Date(b.date)
+  );
 
-  // ✅ Table headers
+  // Table Headers
   const headers = [
     [
       "Sl", "Date", "Truck No", "Description", "Quantity", "Price Rate", "Taka",
-      "Driver Salary", "Fuel Expense", "Labour Gratuity", "Toll", "Transport Cost", "Remaining Taka"
+      "Tip Salary", "Fuel Expense", "Labour Gratuity", "Toll", "Transport Cost",
+      "Driver Salary", "Remaining Taka"
     ],
   ];
 
-  // ✅ Table body
+  // Table Body
   const data = sortedTraders.map((trader, index) => [
     index + 1,
     trader.date,
@@ -516,10 +647,11 @@ const ShowProfit = () => {
     trader.transportCost > 0 && trader.transportCostDescription
       ? `${trader.transportCost} (${trader.transportCostDescription})`
       : trader.transportCost,
+    trader.upDdriverSalary,
     trader.remainingTaka,
   ]);
 
-  // ✅ Render table
+  // Render table
   autoTable(doc, {
     head: headers,
     body: data,
@@ -537,42 +669,58 @@ const ShowProfit = () => {
     margin: { top: 10 },
   });
 
-  // ✅ Calculate remaining space
+  // Footer positioning
   const pageHeight = doc.internal.pageSize.height;
   let finalY = doc.lastAutoTable.finalY + 10;
-  const footerHeight = 30;
+  const footerHeight = 60;
 
   if (finalY + footerHeight > pageHeight) {
     doc.addPage();
     finalY = 15;
   }
 
-  // ✅ Separator Line
+  // Separator Top Line
   doc.setDrawColor(0);
   doc.setLineWidth(0.5);
   doc.line(14, finalY - 5, 280, finalY - 5);
 
-  // ✅ Footer Labels
+  // Footer Labels
   doc.setFontSize(11);
   doc.setFont("helvetica", "bold");
   doc.setTextColor(0, 0, 0);
 
-
   doc.text("Total Taka : ", 14, finalY + 3);
-  doc.text("Total Transportation Cost : ", 14, finalY + 10);
-  doc.text("Total Fuel Expenses : ", 14, finalY + 17);
-  doc.text("Total Profit : ", 14, finalY + 24);
- 
+  doc.text("Total Tip Salary : ", 14, finalY + 10);
+  doc.text("Total Fuel Expense : ", 14, finalY + 17);
+  doc.text("Total Labour Gratuity : ", 14, finalY + 24);
+  doc.text("Total Toll : ", 14, finalY + 31);
+  doc.text("Total Transportation Cost : ", 14, finalY + 38);
+  doc.text("Total Driver Salary : ", 14, finalY + 45);
 
-  // ✅ Footer Values
+  // 👉 Grey dotted line before TOTAL PROFIT
+  doc.setDrawColor(150, 150, 150); // grey color
+  doc.setLineDash([1, 1], 0); // dotted
+  doc.line(14, finalY + 48, 280, finalY + 48);
+  doc.setLineDash([]); // reset to normal
+  doc.setDrawColor(0, 0, 0); // reset color
+
+  doc.text("Total Profit : ", 14, finalY + 55);
+
+  // Footer Values (Right aligned)
   doc.setTextColor(7, 89, 133);
   const alignRightX = 255;
-  doc.text(`${totalTaka} Tk/-`, alignRightX, finalY + 3);
-  doc.text(`${totalTransportCost} Tk/-`, alignRightX, finalY + 10);
-  doc.text(`${totalFuelExpense} Tk/-`, alignRightX, finalY + 17);
-  doc.text(`${totalProfit} Tk/-`, alignRightX, finalY + 24);
 
-  // ✅ Save PDF
+  doc.text(`${totalTaka} Tk/-`, alignRightX, finalY + 3);
+  doc.text(`${totalTipSalary} Tk/-`, alignRightX, finalY + 10);
+  doc.text(`${totalFuelExpense} Tk/-`, alignRightX, finalY + 17);
+  doc.text(`${totalLabourGratuity} Tk/-`, alignRightX, finalY + 24);
+  doc.text(`${totalToll} Tk/-`, alignRightX, finalY + 31);
+  doc.text(`${totalTransportCost} Tk/-`, alignRightX, finalY + 38);
+  doc.text(`${totalDriverSalary} Tk/-`, alignRightX, finalY + 45);
+
+  doc.text(`${totalProfit} Tk/-`, alignRightX, finalY + 55);
+
+  // Save PDF
   doc.save("Profit_Report.pdf");
 };
 
@@ -586,12 +734,13 @@ const ShowProfit = () => {
       "Quantity Of Cement Bag Rod": trader.quantityOfCementBagRod,
       "Price Rate": trader.priceRate,
       Taka: trader.taka,
-      "Driver Salary": trader.driverSalary,
+      "Tip Salary": trader.driverSalary,
       "Fuel Expense": trader.fuelExpense,
       "Labour Gratuity": trader.labourGratuity,
       Toll: trader.toll,
       "Transport Cost": trader.transportCost ,
       "Transport Cost Description": trader.transportCostDescription,
+      "Driver Salary": trader.upDdriverSalary,
       "Remaining Taka": trader.remainingTaka
     })));
     const wb = XLSX.utils.book_new();
@@ -608,7 +757,9 @@ const ShowProfit = () => {
       ? `https://saber-traders-backend-d1gm.vercel.app/traders/remainingTaka/${sdate}/${tdate}`
       : `https://saber-traders-backend-d1gm.vercel.app/traders/remainingTaka/${encodedTruck}/${sdate}/${tdate}`;
 
-      // console.log(url)
+      // const url = `https://saber-traders-backend-d1gm.vercel.app/traders/remainingTaka/${encodedTruck}/${sdate}/${tdate}`
+
+      console.log(url)
     axios
       .get(url)
       .then((res) => {
@@ -617,6 +768,10 @@ const ShowProfit = () => {
         setTotalFuelExpense(res.data.fuelCost);
         setTotalTaka(res.data.totalTaka);
         setTotalTransportCost(res.data.transportCost);
+        setTotalTipSalary(res.data.totalTipSalary);
+        setTotalLabourGratuity(res.data.totalLabourGratuity);
+        setTotalToll(res.data.totalToll);
+        setTotalDriverSalary(res.data.totalDriverSalary);
         setLoading(false);
         // console.log(res.data.data)
       })
@@ -693,11 +848,12 @@ const ShowProfit = () => {
                     <th className='border border-slate-600 rounded-md p-2'>Quantity Of Cement Bag Rod</th>
                     <th className='border border-slate-600 rounded-md p-2'>Price Rate</th>
                     <th className='border border-slate-600 rounded-md p-2'>Taka</th>
-                    <th className='border border-slate-600 rounded-md p-2'>Driver Salary</th>
+                    <th className='border border-slate-600 rounded-md p-2'>Tip Salary</th>
                     <th className='border border-slate-600 rounded-md p-2'>Fuel Expense</th>
                     <th className='border border-slate-600 rounded-md p-2'>Labour Gratuity</th>
                     <th className='border border-slate-600 rounded-md p-2'>Toll</th>
                     <th className='border border-slate-600 rounded-md p-2'>Transport Cost</th>
+                    <th className='border border-slate-600 rounded-md p-2'>Driver Salery</th>
                     {/* <th className='border border-slate-600 rounded-md p-2'>Transport Cost Description</th> */}
                     <th className='border border-slate-600 rounded-md p-2'>Remaining Taka</th>
                   </tr>
@@ -746,6 +902,7 @@ const ShowProfit = () => {
             {trader.transportCost} ({trader.transportCostDescription})
           </td>
         : <td className='border border-slate-700 rounded-md text-center p-2'>{trader.transportCost}</td>}
+      <td className='border border-slate-700 rounded-md text-center p-2'>{trader.upDdriverSalary}</td>
       <td className='border border-slate-700 rounded-md text-center p-2'>{trader.remainingTaka}</td>
     </tr>
   ))}
@@ -754,9 +911,33 @@ const ShowProfit = () => {
             </div>
 
             <div className='flex justify-between items-center'>
-              <h4 className='text-xl my-1'>Total Profit</h4>
-              <div className='flex gap-x-8'>     
-                <h4 className='text-sky-800 text-xl'>{totalProfit}Tk/-</h4>
+              <h4 className='text-xl my-1'>Total Taka</h4>
+              <div className='flex gap-x-8'>
+                <h4 className='text-sky-800 text-xl'>{totalTaka}Tk/-</h4>
+              </div>
+            </div>
+            <div className='flex justify-between items-center'>
+              <h4 className='text-xl my-1'>Total Tip Salary</h4>
+              <div className='flex gap-x-8'>
+                <h4 className='text-sky-800 text-xl'>{totalTipSalary}Tk/-</h4>
+              </div>
+            </div>
+            <div className='flex justify-between items-center'>
+              <h3 className='text-xl my-1'>Total Fuel Expenses</h3>
+              <div className='flex gap-x-8'>
+                <h4 className='text-sky-800 text-xl'>{totalFuelExpense}Tk/-</h4>
+              </div>
+            </div>
+            <div className='flex justify-between items-center'>
+              <h3 className='text-xl my-1'>Total Labour Gratuity</h3>
+              <div className='flex gap-x-8'>
+                <h4 className='text-sky-800 text-xl'>{totalLabourGratuity}Tk/-</h4>
+              </div>
+            </div>
+            <div className='flex justify-between items-center'>
+              <h4 className='text-xl my-1'>Total Toll</h4>
+              <div className='flex gap-x-8'>
+                <h4 className='text-sky-800 text-xl'>{totalToll}Tk/-</h4>
               </div>
             </div>
             <div className='flex justify-between items-center'>
@@ -766,17 +947,20 @@ const ShowProfit = () => {
               </div>
             </div>
             <div className='flex justify-between items-center'>
-              <h4 className='text-xl my-1'>Total Taka</h4>
+              <h4 className='text-xl my-1'>Total Driver Salary</h4>
               <div className='flex gap-x-8'>
-                <h4 className='text-sky-800 text-xl'>{totalTaka}Tk/-</h4>
+                <h4 className='text-sky-800 text-xl'>{totalDriverSalary}Tk/-</h4>
               </div>
             </div>
             <div className='flex justify-between items-center'>
-              <h3 className='text-xl my-1'>Total Fuel Expenses</h3>
-              <div className='flex gap-x-8'>
-                <h4 className='text-sky-800 text-xl'>{totalFuelExpense}Tk/-</h4>
+              <h4 className='text-xl my-1'>Total Profit</h4>
+              <div className='flex gap-x-8'>     
+                <h4 className='text-sky-800 text-xl'>{totalProfit}Tk/-</h4>
               </div>
             </div>
+            
+            
+            
           </div>
 
           <div className='flex justify-center mt-4'>

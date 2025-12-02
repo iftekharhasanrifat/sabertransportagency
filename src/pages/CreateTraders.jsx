@@ -288,34 +288,7 @@ const CreateTraders = () => {
   };
   
 
-  // const handleSaveTraders = () => {
-  //   const data = {
-  //     truckNo: truck,
-  //     date,
-  //     description: `${from} to ${to}`,
-  //     quantityOfCementBagRod,
-  //     priceRate,
-  //     taka: priceRate*quantityOfCementBagRod,
-  //     driverSalary,
-  //     fuelExpense,
-  //     labourGratuity,
-  //     toll,
-  //     transportCost,
-  //     remainingTaka: taka - (driverSalary+fuelExpense+labourGratuity+toll+transportCost),
-  //   };
-  //   console.log(data)
-  //   // setLoading(true);
-  //   // axios
-  //   //   .post('https://saber-traders-backend-d1gm.vercel.app/traders', data)
-  //   //   .then(() => {
-  //   //     setLoading(false);
-  //   //     navigate('/');
-  //   //   })
-  //   //   .catch((error) => {
-  //   //     setLoading(false);
-  //   //     console.log(error);
-  //   //   });
-  // };
+
 
   return (
     <div className='p-4'>

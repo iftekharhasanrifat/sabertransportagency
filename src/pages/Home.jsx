@@ -199,10 +199,10 @@ const Home = () => {
       selector: (row) => row.transportCostDescription,
       // selector: (row) => row.transportCost,
     },
-    {
-      name: "Remaining Taka",
-      selector: (row) => row.remainingTaka,
-    },
+    // {
+    //   name: "Remaining Taka",
+    //   selector: (row) => row.remainingTaka,
+    // },
     {
       name: "Actions",
       cell: (row) => (
